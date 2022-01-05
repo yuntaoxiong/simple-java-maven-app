@@ -41,14 +41,21 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
-
-        stage('Building image') {
-            agent none
-            steps{
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
-            }
-        }
+        // stage('Building image') {
+        //     agent none
+        //     steps{
+        //         script {
+        //             dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        //         }
+        //     }
+        // }
     }
 }
+
+node {
+    def app
+    stage('Build image') {
+
+        /* Build the docker image */
+        app = docker.build("simple-java-maven-app:$BUILD_NUMBER")
+    }
