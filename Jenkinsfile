@@ -8,9 +8,10 @@ pipeline {
     stages {
 
         stage('Clone repository') {
-
+            steps {
             /* Clone our repository */
-            checkout scm
+                checkout scm
+            }    
         }
 
         stage('Build') {
