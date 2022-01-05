@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        registry = "sample/simple-java-maven-app"
+        registryCredential = 'dockerhub_id'
+        dockerImage = ''
+}
     agent {
         docker {
             image 'maven:3-alpine'
@@ -34,6 +39,14 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
+            }
+        }
+
+        stage('Building image') {
+            steps{
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
             }
         }
     }
