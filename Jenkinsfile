@@ -52,10 +52,10 @@ pipeline {
     }
 }
 
-node {
-    def app
-    stage('Build image') {
-
+stage('Build image') {
+    node {
+        def app
         /* Build the docker image */
         app = docker.build("simple-java-maven-app:$BUILD_NUMBER")
     }
+}
