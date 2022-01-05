@@ -40,6 +40,11 @@ pipeline {
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
+            post {
+                always {
+                    rchiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
+            }
         }
         // stage('Building image') {
         //     agent none
